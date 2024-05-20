@@ -23,9 +23,6 @@ const App = () => {
   const [secondChoiceData, setSecondChoiceData] = useState<number>(-1);
 
   const API_URL = import.meta.env.VITE_API_URL;
-  console.log('MODE: ' + import.meta.env.MODE);
-  console.log('API_URL: ' + API_URL);
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +41,7 @@ const App = () => {
     }
 
     fetchData();
-  }, []);
+  }, [API_URL]);
 
   function handleClick(isUserAwnserCorrect: boolean) {
     if (userAwnser !== startingAwnser) return;
