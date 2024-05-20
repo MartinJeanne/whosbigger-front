@@ -22,10 +22,14 @@ const App = () => {
   const [firstChoiceData, setFirstChoiceData] = useState<number>(-1);
   const [secondChoiceData, setSecondChoiceData] = useState<number>(-1);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+  console.log('MODE: ' + import.meta.env.MODE);
+  console.log('API_URL: ' + API_URL);
+  
 
   useEffect(() => {
     const fetchData = async () => {
-      const choices: Choices = await fetch('http://localhost:3001/game/continue?choiceType=townFR')
+      const choices: Choices = await fetch(`${API_URL}/game/continue?choiceType=townFR`)
         .then(response => response.json())
         .catch(console.error);
 
@@ -45,8 +49,8 @@ const App = () => {
   function handleClick(isUserAwnserCorrect: boolean) {
     if (userAwnser !== startingAwnser) return;
 
-    if (isUserAwnserCorrect) setUserAwnser('Correct !')
-    else setUserAwnser('Wrong')
+    if (isUserAwnserCorrect) setUserAwnser('Correct ✅')
+    else setUserAwnser('Wrong ❌')
     
     if (firstChoice && firstChoiceData !== null) {
       firstChoice.data = firstChoiceData;
@@ -59,7 +63,7 @@ const App = () => {
     }
   }
 
-  if (loading) return <div></div>;
+  if (loading) return <div>Loading data.</div>;
   if (!firstChoice || !secondChoice) return <div>Error loading data.</div>;
 
   return (
