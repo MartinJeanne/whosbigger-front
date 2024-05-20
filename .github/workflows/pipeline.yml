@@ -31,5 +31,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         source: "dist/index.html"
-        target: "/root/dist/"
-        rm: true
+        target: /root/
+        rm: false
