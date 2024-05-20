@@ -30,6 +30,6 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        source: "dist/*"
-        target: "/root/dist"
+        source: "dist/index.html"
+        target: "/root/dist/"
         rm: true
