@@ -32,4 +32,4 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         source: "dist"
         target: ./
-        rm: false
+        rm: true
