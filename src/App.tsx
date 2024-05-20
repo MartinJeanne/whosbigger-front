@@ -48,7 +48,7 @@ const App = () => {
 
     if (isUserAwnserCorrect) setUserAwnser('Correct ✅')
     else setUserAwnser('Wrong ❌')
-    
+
     if (firstChoice && firstChoiceData !== null) {
       firstChoice.data = firstChoiceData;
       setFirstChoice(firstChoice);
