@@ -1,4 +1,4 @@
-import './App.css';
+import '../css/Choice.css';
 
 type ChoiceProps = {
     name: string;
@@ -8,11 +8,14 @@ type ChoiceProps = {
 };
 
 export default function Choice({ name, data, isCorrectAwnser, handleClick }: ChoiceProps) {
+    let dataResult;
+    if (data == -1) dataResult = <div className='dataResult'></div>;
+    else dataResult = <div className='dataResult'>{data}</div>;
 
     return (
         <div className='half' onClick={() => { handleClick(isCorrectAwnser) }}>
             <div>{name}</div>
-            <div>{data}</div>
+            {dataResult}
         </div>
     );
 }

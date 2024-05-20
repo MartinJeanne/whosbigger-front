@@ -1,24 +1,38 @@
 import { useState, useEffect } from 'react';
-import './App.css';
-import Choice from './Choice';
+import './css/App.css';
+import Header from './component/Header';
+import Choice from './component/Choice';
 
-type Choices = {
+type ChoiceType = {
   name: string;
   data: number;
   isCorrectAwnser: boolean;
-  handleClick: (isUserAwnserCorrect: boolean) => void;
 };
 
+type Choices = Array<ChoiceType>;
+
 const App = () => {
-  const [loading, setLoading] = useState(true);
-  const [firstChoice, setFirstChoice] = useState<Choices>();
-  const [secondChoice, setSecondChoice] = useState<Choices>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [firstChoice, setFirstChoice] = useState<ChoiceType>();
+  const [secondChoice, setSecondChoice] = useState<ChoiceType>();
+
+  const startingAwnser = 'Choose an anwser';
+  const [userAwnser, setUserAwnser] = useState<string>(startingAwnser);
+
+  const [firstChoiceData, setFirstChoiceData] = useState<number>(-1);
+  const [secondChoiceData, setSecondChoiceData] = useState<number>(-1);
+
 
   useEffect(() => {
     const fetchData = async () => {
-      const choices = await fetch('http://localhost:3001/game/continue?choiceType=townFR')
+      const choices: Choices = await fetch('http://localhost:3001/game/continue?choiceType=townFR')
         .then(response => response.json())
         .catch(console.error);
+
+      setFirstChoiceData(choices[0].data);
+      setSecondChoiceData(choices[1].data);
+      choices[0].data = -1;
+      choices[1].data = -1;
 
       setFirstChoice(choices[0]);
       setSecondChoice(choices[1]);
@@ -29,24 +43,28 @@ const App = () => {
   }, []);
 
   function handleClick(isUserAwnserCorrect: boolean) {
-    if (isUserAwnserCorrect) console.log('handleClick true')
-    else console.log('handleClick false')
+    if (userAwnser !== startingAwnser) return;
 
+    if (isUserAwnserCorrect) setUserAwnser('Correct !')
+    else setUserAwnser('Wrong')
+    
+    if (firstChoice && firstChoiceData !== null) {
+      firstChoice.data = firstChoiceData;
+      setFirstChoice(firstChoice);
+    }
+
+    if (secondChoice && secondChoiceData !== null) {
+      secondChoice.data = secondChoiceData;
+      setSecondChoice(secondChoice);
+    }
   }
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
-  if (!firstChoice || !secondChoice) {
-    return <div>Error loading data.</div>;
-  }
+  if (loading) return <div></div>;
+  if (!firstChoice || !secondChoice) return <div>Error loading data.</div>;
 
   return (
     <div className='main'>
-      <div className='questionContainer'>
-        <div>Who's bigger?</div>
-      </div>
+      <Header userAwnser={userAwnser} />
 
       <div className='choicesContainer'>
         <Choice
