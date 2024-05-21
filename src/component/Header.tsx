@@ -1,4 +1,4 @@
-import { useState, useEffect, useEffectEvent } from 'react';
+import { useState, useEffect } from 'react';
 import '../css/Header.css';
 
 type HeaderProps = {
@@ -7,32 +7,32 @@ type HeaderProps = {
 };
 
 export default function Header({ userAwnser, handleNext }: HeaderProps) {
-    const [userLife, setUserLife] = useState<string>('❤️❤️❤️');
+    const [userLife, setUserLife] = useState<number>(3);
+    const [userLifeDisplay, setUserLifeDisplay] = useState<string>('❤️❤️❤️');
     const [bgColor, setBgColor] = useState<string>('white');
 
-    const updateUserLife = useEffectEvent(() => {
-        console.log(userLife.length);
-        setUserLife(userLife.slice(0, -1));
-    });
+    useEffect(() => {
+        setBgColor('white');
+        if (userAwnser === 'Correct ✅') setBgColor('#85fca9');
+        else if (userAwnser === 'Wrong ❌') {
+            setBgColor('#fc8585');
+            setUserLife(prevLife => prevLife -= 1);
+        }
+    }, [userAwnser]);
 
     useEffect(() => {
-        function update() {
-            setBgColor('white');
-            if (userAwnser === 'Correct ✅') setBgColor('#85fca9');
-            else if (userAwnser === 'Wrong ❌') {
-                setBgColor('#fc8585');
-                updateUserLife();
-            }
+        let totalLifeDisplay = '';
+        for (let i = 0; i < userLife; i++) {
+            totalLifeDisplay += '❤️';
         }
-
-        update();
-    }, [userAwnser]);
+        setUserLifeDisplay(totalLifeDisplay);
+    }, [userLife]);
 
     return (
         <header className='header' style={{ background: bgColor }}>
             <div className='question'>Who's bigger?</div>
             <div className='awnser-and-next'>
-                <div>{userLife}</div>
+                <div>{userLifeDisplay}</div>
                 <div className='user-answer'>{userAwnser}</div>
                 <button
                     className='next-button'
