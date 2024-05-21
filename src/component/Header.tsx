@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import '../css/Header.css';
 
 type HeaderProps = {
     userAwnser: string;
-    handleNext: Function;
+    handleNext: () => void;
 };
 
 export default function Header({ userAwnser, handleNext }: HeaderProps) {
-    const [userLife, setUserLife] = useState<number>(3);
+    const userLife = useRef<number>(3);
     const [userLifeDisplay, setUserLifeDisplay] = useState<string>('❤️❤️❤️');
     const [bgColor, setBgColor] = useState<string>('white');
 
@@ -16,17 +16,16 @@ export default function Header({ userAwnser, handleNext }: HeaderProps) {
         if (userAwnser === 'Correct ✅') setBgColor('#85fca9');
         else if (userAwnser === 'Wrong ❌') {
             setBgColor('#fc8585');
-            setUserLife(prevLife => prevLife -= 1);
+            userLife.current--;
+            
+            let totalLifeDisplay = '';
+            for (let i = 0; i < userLife.current; i++) {
+                totalLifeDisplay += '❤️';
+            }
+            setUserLifeDisplay(totalLifeDisplay);
         }
     }, [userAwnser]);
 
-    useEffect(() => {
-        let totalLifeDisplay = '';
-        for (let i = 0; i < userLife; i++) {
-            totalLifeDisplay += '❤️';
-        }
-        setUserLifeDisplay(totalLifeDisplay);
-    }, [userLife]);
 
     return (
         <header className='header' style={{ background: bgColor }}>

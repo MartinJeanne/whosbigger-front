@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import './css/App.css';
 import Header from './component/Header';
 import Choice from './component/Choice';
@@ -19,8 +19,8 @@ const App = () => {
   const startingAwnser = 'Choose an anwser';
   const [userAwnser, setUserAwnser] = useState<string>(startingAwnser);
 
-  const [firstChoiceData, setFirstChoiceData] = useState<number>(-1);
-  const [secondChoiceData, setSecondChoiceData] = useState<number>(-1);
+  const firstChoiceData = useRef<number>(-1);
+  const secondChoiceData = useRef<number>(-1);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -29,8 +29,9 @@ const App = () => {
       .then(response => response.json())
       .catch(console.error);
 
-    setFirstChoiceData(choices[0].data);
-    setSecondChoiceData(choices[1].data);
+    firstChoiceData.current = choices[0].data;
+    secondChoiceData.current = choices[1].data;
+
     choices[0].data = -1;
     choices[1].data = -1;
 
@@ -50,19 +51,19 @@ const App = () => {
     if (isUserAwnserCorrect) setUserAwnser('Correct ✅')
     else setUserAwnser('Wrong ❌')
 
-    if (firstChoice && firstChoiceData !== null) {
-      firstChoice.data = firstChoiceData;
+    if (firstChoice && firstChoiceData.current !== null) {
+      firstChoice.data = firstChoiceData.current;
       setFirstChoice(firstChoice);
     }
 
-    if (secondChoice && secondChoiceData !== null) {
-      secondChoice.data = secondChoiceData;
+    if (secondChoice && secondChoiceData.current !== null) {
+      secondChoice.data = secondChoiceData.current;
       setSecondChoice(secondChoice);
     }
   }
 
-  if (loading) return <div>Loading data.</div>;
-  if (!firstChoice || !secondChoice) return <div>Error loading data.</div>;
+  if (loading) return <div>Loading data...</div>;
+  if (!firstChoice || !secondChoice) return <div>Error loading data</div>;
 
   return (
     <div className='main'>
