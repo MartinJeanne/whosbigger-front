@@ -16,14 +16,15 @@
 }
 
 .awnser-and-next {
-  margin-right: 2vw;
   display: flex;
-  justify-content: space-around;
   align-items: center;
 }
 
+.awnser-and-next>* {
+  margin-right: 3vw;
+}
+
 .user-answer {
-  margin-right: 2vw;
   font-size: 1.25rem;
   padding: 5px 10px;
   border-radius: 5px;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './css/App.css';
 import Header from './component/Header';
 import Choice from './component/Choice';
@@ -24,27 +24,28 @@ const App = () => {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const choices: Choices = await fetch(`${API_URL}/game/continue?choiceType=townFR`)
-        .then(response => response.json())
-        .catch(console.error);
+  const fetchData = useCallback(async () => {
+    const choices: Choices = await fetch(`${API_URL}/game/continue?choiceType=townFR`)
+      .then(response => response.json())
+      .catch(console.error);
 
-      setFirstChoiceData(choices[0].data);
-      setSecondChoiceData(choices[1].data);
-      choices[0].data = -1;
-      choices[1].data = -1;
+    setFirstChoiceData(choices[0].data);
+    setSecondChoiceData(choices[1].data);
+    choices[0].data = -1;
+    choices[1].data = -1;
 
-      setFirstChoice(choices[0]);
-      setSecondChoice(choices[1]);
-      setLoading(false);
-    }
-
-    fetchData();
+    setFirstChoice(choices[0]);
+    setSecondChoice(choices[1]);
+    setUserAwnser(startingAwnser);
+    setLoading(false);
   }, [API_URL]);
 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData, API_URL]);
+
   function handleClick(isUserAwnserCorrect: boolean) {
-    if (userAwnser !== startingAwnser) return;
+    if (userAwnser !== startingAwnser) return; // user albready anwsered
 
     if (isUserAwnserCorrect) setUserAwnser('Correct ✅')
     else setUserAwnser('Wrong ❌')
@@ -65,7 +66,7 @@ const App = () => {
 
   return (
     <div className='main'>
-      <Header userAwnser={userAwnser} />
+      <Header userAwnser={userAwnser} handleNext={fetchData} />
 
       <div className='choicesContainer'>
         <Choice
