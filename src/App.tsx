@@ -45,6 +45,9 @@ const App = () => {
     fetchData();
   }, [fetchData, API_URL]);
 
+  if (loading) return <div>Loading data...</div>;
+  if (!firstChoice || !secondChoice) return <div>Error loading data</div>;
+
   function handleClick(isUserAwnserCorrect: boolean) {
     if (userAwnser !== startingAwnser) return; // user albready anwsered
 
@@ -62,12 +65,13 @@ const App = () => {
     }
   }
 
-  if (loading) return <div>Loading data...</div>;
-  if (!firstChoice || !secondChoice) return <div>Error loading data</div>;
+  function handleLoose() {
+    console.log('You loose!');
+  }
 
   return (
     <div className='main'>
-      <Header userAwnser={userAwnser} handleNext={fetchData} />
+      <Header userAwnser={userAwnser} handleNext={fetchData} handleLoose={handleLoose} />
 
       <div className='choicesContainer'>
         <Choice
