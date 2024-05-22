@@ -1,0 +1,1 @@
+weather for cities: curl -s http://wttr.in/Caen?format=3
