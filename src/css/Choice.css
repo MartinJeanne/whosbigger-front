@@ -11,9 +11,15 @@
   border-right: 1px solid rgb(185, 185, 185);
   border-left: 1px solid rgb(185, 185, 185);
   background-color: rgb(245, 245, 245);
+}
+.name {
   font-size: 3rem;
 }
 
-.dataResult {
+.data {
+  height: 5vh;
+}
+
+.metadata {
   height: 5vh;
 }

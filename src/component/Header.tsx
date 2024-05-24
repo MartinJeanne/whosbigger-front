@@ -9,7 +9,7 @@ type HeaderProps = {
 
 export default function Header({ userAwnser, handleNext, handleLoose }: HeaderProps) {
     const userLife = useRef<number>(3);
-    const [userLifeDisplay, setUserLifeDisplay] = useState<string>('❤️❤️❤️');
+    const [userLifeATH, setUserLifeATH] = useState<string>('❤️❤️❤️');
     const [bgColor, setBgColor] = useState<string>('white');
     const [score, setScore] = useState<number>(0);
 
@@ -22,29 +22,38 @@ export default function Header({ userAwnser, handleNext, handleLoose }: HeaderPr
         else if (userAwnser === 'Wrong ❌') {
             setBgColor('#fc8585');
             userLife.current--;
-
-            let totalLifeDisplay = '';
-            for (let i = 0; i < userLife.current; i++) {
-                totalLifeDisplay += '❤️';
-            }
-            setUserLifeDisplay(totalLifeDisplay);
-            if (userLife.current <= 0) {
-                setScore(0);
-                handleLoose();
-            }
+            refreshUsersLifeATH();
         }
     }, [userAwnser, handleLoose]);
+
+    function refreshUsersLifeATH() {
+        let totalLifeDisplay = '';
+        for (let i = 0; i < userLife.current; i++) {
+            totalLifeDisplay += '❤️';
+        }
+        setUserLifeATH(totalLifeDisplay);
+    }
+
+    function next() {
+        if (userLife.current <= 0) {
+            setScore(0);
+            userLife.current = 3;
+            refreshUsersLifeATH();
+            handleLoose();
+        }
+        handleNext();
+    }
 
 
     return (
         <header className='header' style={{ background: bgColor }}>
             <div className='question'>Who's bigger?</div>
             <div className='awnser-and-next'>
-                <div>{userLifeDisplay}</div>
+                <div>{userLifeATH}</div>
                 <div className='user-answer'>Score: {score}</div>
                 <button
                     className='next-button'
-                    onClick={() => handleNext()}>
+                    onClick={() => next()}>
                     Next
                 </button>
             </div>

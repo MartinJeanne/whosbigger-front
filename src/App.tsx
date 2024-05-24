@@ -6,6 +6,7 @@ import Choice from './component/Choice';
 type ChoiceType = {
   name: string;
   data: number;
+  metadata: any;
   isCorrectAwnser: boolean;
 };
 
@@ -67,6 +68,7 @@ const App = () => {
 
   function handleLoose() {
     console.log('You loose!');
+
   }
 
   return (
@@ -77,6 +79,7 @@ const App = () => {
         <Choice
           name={firstChoice.name}
           data={firstChoice.data}
+          metadata={firstChoice.metadata}
           isCorrectAwnser={firstChoice.isCorrectAwnser}
           handleClick={handleClick}
         />
@@ -84,6 +87,7 @@ const App = () => {
         <Choice
           name={secondChoice.name}
           data={secondChoice.data}
+          metadata={secondChoice.metadata}
           isCorrectAwnser={secondChoice.isCorrectAwnser}
           handleClick={handleClick}
         />

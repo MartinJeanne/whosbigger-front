@@ -3,18 +3,20 @@ import '../css/Choice.css';
 type ChoiceProps = {
     name: string;
     data: number;
+    metadata: any;
     isCorrectAwnser: boolean;
     handleClick: (isUserAwnserCorrect: boolean) => void;
 };
 
-export default function Choice({ name, data, isCorrectAwnser, handleClick }: ChoiceProps) {
+export default function Choice({ name, data, metadata, isCorrectAwnser, handleClick }: ChoiceProps) {
     let dataResult;
-    if (data == -1) dataResult = <div className='dataResult'></div>;
-    else dataResult = <div className='dataResult'>{data}</div>;
+    if (data == -1) dataResult = <div className='data'></div>;
+    else dataResult = <div className='data'>{data}</div>;
 
     return (
         <div className='half' onClick={() => { handleClick(isCorrectAwnser) }}>
-            <div>{name}</div>
+            <div className='metadata'>{metadata.weather}</div>
+            <div className='name'>{name}</div>
             {dataResult}
         </div>
     );
