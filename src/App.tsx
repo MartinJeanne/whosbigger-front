@@ -16,9 +16,7 @@ const App = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [firstChoice, setFirstChoice] = useState<ChoiceType>();
   const [secondChoice, setSecondChoice] = useState<ChoiceType>();
-
-  const startingAwnser = 'Choose an anwser';
-  const [userAwnser, setUserAwnser] = useState<string>(startingAwnser);
+  const [isUserRight, setIsUserRight] = useState<boolean | undefined>(undefined);
 
   const firstChoiceData = useRef<number>(-1);
   const secondChoiceData = useRef<number>(-1);
@@ -38,7 +36,7 @@ const App = () => {
 
     setFirstChoice(choices[0]);
     setSecondChoice(choices[1]);
-    setUserAwnser(startingAwnser);
+    setIsUserRight(undefined);
     setLoading(false);
   }, [API_URL]);
 
@@ -49,11 +47,9 @@ const App = () => {
   if (loading) return <div>Loading data...</div>;
   if (!firstChoice || !secondChoice) return <div>Error loading data</div>;
 
-  function handleClick(isUserAwnserCorrect: boolean) {
-    if (userAwnser !== startingAwnser) return; // user albready anwsered
-
-    if (isUserAwnserCorrect) setUserAwnser('Correct ✅')
-    else setUserAwnser('Wrong ❌')
+  function handleClick(isRightAnwser: boolean) {
+    if (isUserRight !== undefined) return; // user albready anwsered
+    setIsUserRight(isRightAnwser);
 
     if (firstChoice && firstChoiceData.current !== null) {
       firstChoice.data = firstChoiceData.current;
@@ -73,7 +69,7 @@ const App = () => {
 
   return (
     <div className='main'>
-      <Header userAwnser={userAwnser} handleNext={fetchData} handleLoose={handleLoose} />
+      <Header isUserRight={isUserRight} handleNext={fetchData} handleLoose={handleLoose} />
 
       <div className='choicesContainer'>
         <Choice

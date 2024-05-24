@@ -2,12 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import '../css/Header.css';
 
 type HeaderProps = {
-    userAwnser: string;
+    isUserRight: boolean | undefined;
     handleNext: () => void;
     handleLoose: () => void;
 };
 
-export default function Header({ userAwnser, handleNext, handleLoose }: HeaderProps) {
+export default function Header({ isUserRight, handleNext, handleLoose }: HeaderProps) {
     const userLife = useRef<number>(3);
     const [userLifeATH, setUserLifeATH] = useState<string>('❤️❤️❤️');
     const [bgColor, setBgColor] = useState<string>('white');
@@ -15,16 +15,16 @@ export default function Header({ userAwnser, handleNext, handleLoose }: HeaderPr
 
     useEffect(() => {
         setBgColor('white');
-        if (userAwnser === 'Correct ✅') {
+        if (isUserRight === true) {
             setBgColor('#85fca9');
             setScore(st => st += 1);
         }
-        else if (userAwnser === 'Wrong ❌') {
+        else if (isUserRight === false) {
             setBgColor('#fc8585');
             userLife.current--;
             refreshUsersLifeATH();
         }
-    }, [userAwnser, handleLoose]);
+    }, [isUserRight, handleLoose]);
 
     function refreshUsersLifeATH() {
         let totalLifeDisplay = '';
@@ -35,6 +35,7 @@ export default function Header({ userAwnser, handleNext, handleLoose }: HeaderPr
     }
 
     function next() {
+        if (isUserRight === undefined) return;
         if (userLife.current <= 0) {
             setScore(0);
             userLife.current = 3;
