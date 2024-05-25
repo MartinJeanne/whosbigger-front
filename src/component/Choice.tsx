@@ -23,6 +23,7 @@ export default function Choice({ name, data, metadata, isCorrectAwnser, handleCl
         fetch(`${API_URL}/choices/${nameForUrl}/image`)
             .then(response => {
                 if (response.ok) return response.json();
+                else throw Error('No img for choice: ' + nameForUrl);
             })
             .then(data => setBgImgProperty(`url(${data.image})`))
             .catch(console.error);
