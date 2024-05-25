@@ -8,17 +8,40 @@
   align-items: center;
   flex-direction: column;
   cursor: pointer;
-  border-top: 2px solid rgb(185, 185, 185);
-  border-right: 1px solid rgb(185, 185, 185);
-  border-left: 1px solid rgb(185, 185, 185);
-  background-color: rgb(245, 245, 245);
-}
-.name {
-  font-size: 3rem;
   background-size: cover;
-  background-position: bottom;
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+  box-sizing: border-box;
+}
+
+.bg-image {
+  opacity: 0.65;
+  box-shadow: none;
+  position: absolute;
+  height: 90vh;
+  width: 50vw;
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  background-position: 50% 75%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.name {
+  font-size: 3.8rem;
+  font-weight: 800;
+  z-index: 2;
+}
+
+.metadata {
+  font-weight: 500;
+  font-size: 1.8rem;
+  z-index: 2;
 }
 
 .data {
-  height: 5vh;
+  height: 4vh;
+  font-weight: 500;
+  font-size: 1.8rem;
+  z-index: 2;
 }

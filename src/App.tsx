@@ -78,6 +78,7 @@ const App = () => {
           metadata={firstChoice.metadata}
           isCorrectAwnser={firstChoice.isCorrectAwnser}
           handleClick={handleClick}
+          position={1}
         />
 
         <Choice
@@ -86,6 +87,7 @@ const App = () => {
           metadata={secondChoice.metadata}
           isCorrectAwnser={secondChoice.isCorrectAwnser}
           handleClick={handleClick}
+          position={2}
         />
       </div>
     </div>
