@@ -24,7 +24,7 @@ const App = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   const fetchData = useCallback(async () => {
-    const choices: Choices = await fetch(`${API_URL}/game/continue?choiceType=townFR`)
+    const choices: Choices = await fetch(`${API_URL}/choices?choiceType=townFR`)
       .then(response => response.json())
       .catch(console.error);
 
