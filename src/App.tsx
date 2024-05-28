@@ -23,8 +23,8 @@ const App = () => {
 
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const fetchData = useCallback(async () => {
-    const choices: Choices = await fetch(`${API_URL}/choices?difficulty=easy`)
+  const fetchData = useCallback(async (difficulty: string = 'medium') => {
+    const choices: Choices = await fetch(`${API_URL}/choices?difficulty=${difficulty}`)
       .then(response => response.json())
       .catch(console.error);
 
