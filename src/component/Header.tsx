@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Header.css';
 
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import { Dropdown } from 'primereact/dropdown';
+
 type HeaderProps = {
     isUserRight: boolean | undefined;
     handleNext: () => void;
@@ -46,13 +49,23 @@ export default function Header({ isUserRight, handleNext, handleLoose }: HeaderP
         handleNext();
     }
 
+    const [selectedDifficulty, setSelectedDifficulty] = useState('Easy');
+    const difficulties = [
+        { name: 'Easy', code: 'easy' },
+        { name: 'Medium', code: 'medium' },
+        { name: 'Hard', code: 'hard' }
+    ];
+
 
     return (
         <header className='header' style={{ background: bgColor }}>
             <Link className='question' to="/">Who's bigger?</Link>
+                
             <div className='awnser-and-next'>
                 <div>{userLifeATH}</div>
                 <div className='user-answer'>Score: {score}</div>
+                <Dropdown value={selectedDifficulty} onChange={(e) => setSelectedDifficulty(e.value)} options={difficulties} optionLabel="name"
+                placeholder={selectedDifficulty} className="dropdown w-full md:w-14rem" />
                 <button
                     className='next-button'
                     onClick={() => next()}>

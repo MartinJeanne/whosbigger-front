@@ -25,7 +25,12 @@
 }
 
 .awnser-and-next>* {
-  margin-right: 3vw;
+  margin-right: 2vw;
+  width: 100px;
+}
+
+.dropdown {
+  width: 140px;
 }
 
 .user-answer {

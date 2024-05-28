@@ -8,6 +8,8 @@ import './index.css'
 import Home from './component/Home';
 import App from './App';
 import About from './routes/about';
+import Map from './component/Map';
+
 
 const router = createBrowserRouter([
   {
@@ -15,16 +17,24 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: 'play',
+    path: '/play',
     element: <App />,
   },
   {
-    path: 'leaderboard',
+    path: '/leaderboard',
     element: <About />,
   },
   {
-    path: 'about',
+    path: '/about',
     element: <About />,
+  },
+  {
+    path: '/map/:location',
+    element: <Map />,
+    loader: async ({ params }) => {
+      console.log(params.location);
+      return params.location;
+    },
   },
 ]);
 
