@@ -24,7 +24,7 @@ const App = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   const fetchData = useCallback(async () => {
-    const choices: Choices = await fetch(`${API_URL}/choices?choiceType=townFR`)
+    const choices: Choices = await fetch(`${API_URL}/choices?difficulty=easy`)
       .then(response => response.json())
       .catch(console.error);
 
@@ -64,7 +64,6 @@ const App = () => {
 
   function handleLoose() {
     console.log('You loose!');
-
   }
 
   return (

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../css/Header.css';
 
 type HeaderProps = {
@@ -48,7 +49,7 @@ export default function Header({ isUserRight, handleNext, handleLoose }: HeaderP
 
     return (
         <header className='header' style={{ background: bgColor }}>
-            <div className='question'>Who's bigger?</div>
+            <Link className='question' to="/">Who's bigger?</Link>
             <div className='awnser-and-next'>
                 <div>{userLifeATH}</div>
                 <div className='user-answer'>Score: {score}</div>
