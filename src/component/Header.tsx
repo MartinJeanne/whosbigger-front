@@ -16,6 +16,7 @@ export default function Header({ isUserRight, handleNext, handleLoose }: HeaderP
     const [userLifeATH, setUserLifeATH] = useState<string>('❤️❤️❤️');
     const [bgColor, setBgColor] = useState<string>('white');
     const [score, setScore] = useState<number>(0);
+    const [selectedDifficulty, setSelectedDifficulty] = useState({ name: 'Medium', code: 'medium' });
 
     useEffect(() => {
         setBgColor('white');
@@ -41,15 +42,24 @@ export default function Header({ isUserRight, handleNext, handleLoose }: HeaderP
     function next() {
         if (isUserRight === undefined) return;
         if (userLife.current <= 0) {
-            setScore(0);
-            userLife.current = 3;
-            refreshUsersLifeATH();
+            resetGame();
             handleLoose();
         }
         handleNext(selectedDifficulty.code);
     }
 
-    const [selectedDifficulty, setSelectedDifficulty] = useState({ name: 'Medium', code: 'medium' });
+    function handleDifficultyChanged(diff) {
+        setSelectedDifficulty(diff.value);
+        resetGame();
+        handleNext(selectedDifficulty.code);
+    }
+
+    function resetGame() {
+        setScore(0);
+        userLife.current = 3;
+        refreshUsersLifeATH();
+    }
+
     const difficulties = [
         { name: 'Easy', code: 'easy' },
         { name: 'Medium', code: 'medium' },
@@ -63,7 +73,7 @@ export default function Header({ isUserRight, handleNext, handleLoose }: HeaderP
             <div className='awnser-and-next'>
                 <div>{userLifeATH}</div>
                 <div className='user-answer'>Score: {score}</div>
-                <Dropdown value={selectedDifficulty} onChange={(e) => setSelectedDifficulty(e.value)} options={difficulties} optionLabel="name"
+                <Dropdown value={selectedDifficulty} onChange={diff => handleDifficultyChanged(diff)} options={difficulties} optionLabel="name"
                     placeholder='Easy' className="dropdown w-full md:w-14rem" />
                 <button
                     className='next-button'
