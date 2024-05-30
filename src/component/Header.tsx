@@ -48,7 +48,7 @@ export default function Header({ isUserRight, handleNext, handleLoose }: HeaderP
         handleNext(selectedDifficulty.code);
     }
 
-    function handleDifficultyChanged(diff) {
+    function handleDifficultyChanged(diff: any) {
         setSelectedDifficulty(diff.value);
         resetGame();
         handleNext(selectedDifficulty.code);
