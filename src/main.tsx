@@ -7,9 +7,7 @@ import {
 import './index.css'
 import Home from './component/Home';
 import App from './App';
-import About from './routes/about';
 import Map from './component/Map';
-
 
 const router = createBrowserRouter([
   {
@@ -21,12 +19,12 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: '/leaderboard',
-    element: <About />,
+    path: 'leaderboard',
+    element: <App />,
   },
   {
-    path: '/about',
-    element: <About />,
+    path: 'about',
+    element: <App />,
   },
   {
     path: '/map/:location',
