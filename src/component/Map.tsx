@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MapContainer, TileLayer, Popup, useMapEvents, CircleMarker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { LatLng } from 'leaflet';
 
 export default function Map() {
     const { location } = useParams();
     console.log(location);
 
-    const position = [49.1846, -0.3722];
+    const position: [number, number] = [49.1846, -0.3722];
     const greenOptions = { color: 'green' }
 
     return (
@@ -25,7 +26,7 @@ export default function Map() {
 }
 
 function LocationMarker() {
-    const [position, setPosition] = useState(null);
+    const [position, setPosition] = useState<LatLng>();
 
     useMapEvents({
         click(e) {
@@ -37,8 +38,8 @@ function LocationMarker() {
         <Popup position={position}>
             <div>
                 You clicked at <br />
-                Latitude: {position.lat.toFixed(4)}, <br />
-                Longitude: {position.lng.toFixed(4)}
+                Latitude: {position?.lat.toFixed(4)}, <br />
+                Longitude: {position?.lng.toFixed(4)}
             </div>
         </Popup>
     );
