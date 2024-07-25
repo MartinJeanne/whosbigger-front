@@ -1,0 +1,5 @@
+linkstart.club {
+    rewrite * /
+    root * /srv
+    file_server
+}
