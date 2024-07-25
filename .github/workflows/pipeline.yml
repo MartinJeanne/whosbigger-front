@@ -32,4 +32,4 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         rm: true
         source: "dist/index.html,dist/assets/*"
-        target: /root/caddy/site/
+        target: "/root/caddy/site"
