@@ -31,5 +31,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         rm: true
+        strip_components: true
         source: "dist/index.html,dist/assets/*"
         target: "/root/caddy/site"
