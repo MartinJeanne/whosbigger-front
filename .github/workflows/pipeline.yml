@@ -31,5 +31,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         rm: true
-        source: site
-        target: /root/caddy
+        source: site/*
+        target: /root/caddy/site/
