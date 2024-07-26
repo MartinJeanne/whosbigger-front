@@ -1,5 +1,8 @@
 linkstart.club {
-    rewrite * /
+    @notStatic {
+        not path /assets/* /favicon.ico /robots.txt
+    }
+    rewrite @notStatic /index.html
     root * /srv
     file_server
 }
