@@ -32,6 +32,6 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         rm: true
         strip_components: 1
-        source: "dist/index.html,dist/assets/*"
+        source: "dist/*"
         target: "/root/caddy/site"
         
