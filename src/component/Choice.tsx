@@ -20,7 +20,7 @@ export default function Choice({ name, data, metadata, isCorrectAwnser, handleCl
         setBgImgProperty('none');
         const nameForUrl = name.replace(' ', '_');
 
-        fetch(`/choices/${nameForUrl}/image`)
+        fetch(`/api/choices/${nameForUrl}/image`)
             .then(response => {
                 if (response.ok) return response.json();
                 else throw Error('No img for choice: ' + nameForUrl);
