@@ -21,10 +21,10 @@ const App = () => {
   const firstChoiceData = useRef<number>(-1);
   const secondChoiceData = useRef<number>(-1);
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  //const API_URL = import.meta.env.VITE_API_URL; TODO to delete?
 
   const fetchData = useCallback(async (difficulty: string = 'medium') => {
-    const choices: Choices = await fetch(`${API_URL}/choices?difficulty=${difficulty}`)
+    const choices: Choices = await fetch(`/choices?difficulty=${difficulty}`)
       .then(response => response.json())
       .catch(console.error);
 
@@ -38,11 +38,11 @@ const App = () => {
     setSecondChoice(choices[1]);
     setIsUserRight(undefined);
     setLoading(false);
-  }, [API_URL]);
+  }, []);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData, API_URL]);
+  }, [fetchData]);
 
   if (loading) return <div>Loading data...</div>;
   if (!firstChoice || !secondChoice) return <div>Error loading data</div>;

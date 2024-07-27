@@ -14,13 +14,13 @@ type ChoiceProps = {
 export default function Choice({ name, data, metadata, isCorrectAwnser, handleClick, position }: ChoiceProps) {
     const [bgImgProperty, setBgImgProperty] = useState('none');
 
-    const API_URL = import.meta.env.VITE_API_URL;
+  //const API_URL = import.meta.env.VITE_API_URL; TODO to delete?
 
     useEffect(() => {
         setBgImgProperty('none');
         const nameForUrl = name.replace(' ', '_');
 
-        fetch(`${API_URL}/choices/${nameForUrl}/image`)
+        fetch(`/choices/${nameForUrl}/image`)
             .then(response => {
                 if (response.ok) return response.json();
                 else throw Error('No img for choice: ' + nameForUrl);
@@ -28,7 +28,7 @@ export default function Choice({ name, data, metadata, isCorrectAwnser, handleCl
             .then(data => setBgImgProperty(`url(${data.image})`))
             .catch(console.error);
 
-    }, [API_URL, name]);
+    }, [name]);
 
     let dataResult;
     if (data === -1) dataResult = <div className='data'></div>;
