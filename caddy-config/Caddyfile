@@ -1,9 +1,11 @@
 linkstart.club, www.linkstart.club {
-    root * /srv
-    file_server
+	root * /srv
+	route {
+    	reverse_proxy /api/* whosbigger-back:3001
+        try_files {path} /index.html
+    	file_server
+	}
 	encode gzip
-    try_files {path} /index.html
-
 	log {
 		output file /log/caddy.log {
 			roll_size 1gb
@@ -11,6 +13,6 @@ linkstart.club, www.linkstart.club {
 			roll_keep_for 30d
 		}
         format console
-        level INFO
+        level DEBUG
 	}
 }

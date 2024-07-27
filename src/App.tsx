@@ -21,8 +21,6 @@ const App = () => {
   const firstChoiceData = useRef<number>(-1);
   const secondChoiceData = useRef<number>(-1);
 
-  //const API_URL = import.meta.env.VITE_API_URL; TODO to delete?
-
   const fetchData = useCallback(async (difficulty: string = 'medium') => {
     const choices: Choices = await fetch(`/api/choices?difficulty=${difficulty}`)
       .then(response => response.json())

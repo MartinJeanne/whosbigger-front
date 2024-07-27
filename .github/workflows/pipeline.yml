@@ -34,14 +34,3 @@ jobs:
         strip_components: 1
         source: "dist/*"
         target: "/root/caddy/site"
-        
-    - name: Reload Caddy
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: |
-          cd /root/caddy
-          docker compose exec -w /etc/caddy caddy caddy reload

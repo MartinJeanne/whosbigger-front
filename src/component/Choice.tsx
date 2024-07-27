@@ -14,8 +14,6 @@ type ChoiceProps = {
 export default function Choice({ name, data, metadata, isCorrectAwnser, handleClick, position }: ChoiceProps) {
     const [bgImgProperty, setBgImgProperty] = useState('none');
 
-  //const API_URL = import.meta.env.VITE_API_URL; TODO to delete?
-
     useEffect(() => {
         setBgImgProperty('none');
         const nameForUrl = name.replace(' ', '_');

@@ -9,16 +9,21 @@ services:
       - "80:80"
       - "443:443"
       - "443:443/udp"
-    networks:
-      - whosbigger
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./site:/srv
       - ./log/caddy.log:/log/caddy.log
       - caddy_data:/data
       - caddy_config:/config
+    networks:
+      - whosbigger
 
 volumes:
   caddy_data:
     external: true
   caddy_config:
+
+networks:
+  whosbigger:
+    name: whosbigger
+    external: true
