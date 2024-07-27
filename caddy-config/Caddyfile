@@ -1,8 +1,16 @@
 linkstart.club {
-    @notStatic {
-        not path /assets/* /favicon.ico /robots.txt
-    }
-    rewrite @notStatic /index.html
     root * /srv
     file_server
+	encode gzip
+    try_files {path} /index.html
+
+	log {
+		output file /log/caddy.log {
+			roll_size 1gb
+			roll_keep 5
+			roll_keep_for 30d
+		}
+        format console
+        level INFO
+	}
 }
