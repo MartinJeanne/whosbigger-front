@@ -31,7 +31,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.SSH_PORT }}
         script: |
-          rm -r /root/caddy/site/*
+          rm -rf /root/caddy/site/*
 
     - name: Deploy to Production
       uses: appleboy/scp-action@v0.1.7
