@@ -3,15 +3,22 @@ services:
     image: caddy:2.8.4-alpine
     container_name: caddy
     restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
     ports:
       - "80:80"
       - "443:443"
       - "443:443/udp"
+    networks:
+      - whosbigger
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./site:/srv
       - ./log/caddy.log:/log/caddy.log
+      - caddy_data:/data
+      - caddy_config:/config
 
 volumes:
   caddy_data:
+    external: true
   caddy_config:
