@@ -10,10 +10,13 @@ export default function Home() {
             </header>
 
             <div className="buttons">
-                <Link className='button ' to="/play">Play</Link>
-                <Link className='button disable' to="/leaderboard">Leaderboard</Link>
-                <Link className='button disable' to="/about">About</Link>
+                <Link className='button' to="/play">Play</Link>
             </div>
         </div>
     );
 }
+
+/*
+<Link className='button disable' to="/leaderboard">Leaderboard</Link>
+<Link className='button disable' to="/about">About</Link>
+*/
